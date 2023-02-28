@@ -3,7 +3,7 @@
 Control your [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/) devices with a colorful terminal user interface via [bubbletea](https://github.com/charmbracelet/bubbletea). 
 
 <p>
-  <img src="https://github.com/ndsizeif/pic/blob/assets/assets/demo.gif?"/>
+  <img src="https://github.com/ndsizeif/pulsemanager/blob/assets/assets/demo.gif?"/>
 	<br>
 </p>  
 
