@@ -1,0 +1,31 @@
+########## Pulse Manager Config ##########
+Settings:
+  Fullscreen: true
+  NoMessage: false
+  NoHelp: false
+  NoTitle: false
+  Width: 120
+  Items: 5
+  VolumeLimit: 140
+  VolumeSteps: 5
+Colors:
+  Inactive:
+    Light: "red"
+    Dark:  "#F5DD42"
+  Active:
+    Light: "Black"
+    Dark:  "#F5B342"
+  Sink:
+    Light: "Red"
+    Dark:  "#F59342"
+  Stream:
+    Light: "yellow"
+    Dark:  "#F56942"
+  Source:
+    Light: "Black"
+    Dark:  "#F59342"
+  Output:
+    Light: "red"
+    Dark:  "#F5DD42"
+Styles:
+  Border: 4
