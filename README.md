@@ -8,9 +8,9 @@ Control your [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/)
 </p>  
 
 ### Installation
-
+Download the main branch of the project without any assets.
 ```
-git clone https://github.com/ndsizeif/pulsemanager
+git clone --depth=1 https://github.com/ndsizeif/pulsemanager
 ```
 To try it out simply type `go run .` in the project directory.
 To install run `go build` and place the pulsemanager binary in your PATH.
