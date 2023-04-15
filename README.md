@@ -14,12 +14,11 @@ git clone --depth=1 https://github.com/ndsizeif/pulsemanager
 ```
 To try it out simply type `go run .` in the project directory.
 To install run `go build` and place the pulsemanager binary in your PATH.
-The system must be using and running a pulseaudio sound server and have pactl
-installed.
+The system must have pactl installed.
 
 ### Usage
 
-Pulsemanager can be used to view audio devices running on a pulseaudio server.
+Pulsemanager can be used to view audio devices running on a pulseaudio or pipewire server.
 It can issue basic pactl commands to control device parameters, such as volume.
 
 #### Flags

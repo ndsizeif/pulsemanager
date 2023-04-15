@@ -25,14 +25,6 @@ func main() {
 		fmt.Println(errorOut(errorMsg1))
 		return
 	}
-	if !haveProgram("pulseaudio") {
-		fmt.Println(errorOut(errorMsg2))
-		return
-	}
-	if !havePulseServer("--check") {
-		fmt.Println(errorOut(errorMsg3))
-		return
-	}
 	if isConsole() {
 		istty = true
 	}

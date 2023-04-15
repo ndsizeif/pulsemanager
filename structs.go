@@ -18,8 +18,6 @@ import (
 var (
 	errorHalt = false // stop View() from rendering crashable code
 	errorMsg1 = "pulseaudio: \"pactl\" not found in path\nplease install before running program"
-	errorMsg2 = "pulseaudio program not found in path \nplease install before running program"
-	errorMsg3 = "pulseaudio server process not found\nstart pulseaudio before running program"
 	errorLoad string
 	errorFmt  = lipgloss.NewStyle().BorderStyle(lipgloss.RoundedBorder()).
 			BorderForeground(lipgloss.Color(Red)).Padding(0, 1, 0, 1)
@@ -250,7 +248,7 @@ type Display struct {
 // send initial display settings to bubbletea model
 func initDisplay() Display {
 	var display Display
-	display.level = 1
+	display.level = 2
 	display.max = 2
 	return display
 }
