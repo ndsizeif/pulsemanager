@@ -22,6 +22,8 @@ var (
 	setNoHelp     bool    // hide help model
 	setNoTitle    bool    // hide title
 	setBorder     = lipgloss.NormalBorder()
+	setNoSymbol   bool // do not use unicode symbols
+	setDisplay    int  // device display level
 )
 
 // flag variables used for command line parsing and validation
@@ -35,6 +37,8 @@ var (
 	maxVolumeFlag  int
 	setItemsFlag   int
 	setWidthFlag   int
+	symbolsFlag    bool
+	displayFlag    int
 )
 
 // define the default settings for both flags and config file
@@ -47,6 +51,8 @@ func initDefaults() Config {
 	c.Settings.Items = 4
 	c.Settings.VolumeLimit = 110
 	c.Settings.VolumeSteps = 5
+	c.Settings.NoSymbols = false
+	c.Settings.DeviceDisplay = 2
 	return c
 }
 
@@ -60,6 +66,8 @@ func setDefaults(d Config) {
 	viper.SetDefault("items", d.Settings.Items)
 	viper.SetDefault("volume-limit", d.Settings.VolumeLimit)
 	viper.SetDefault("volume-steps", d.Settings.VolumeSteps)
+	viper.SetDefault("no-symbols", d.Settings.NoSymbols)
+	viper.SetDefault("device-display", d.Settings.DeviceDisplay)
 }
 
 // get color values from configuration file
@@ -109,6 +117,12 @@ func validateConfig(c *Config) {
 	if c.Settings.VolumeSteps > maxConfigIncrement {
 		c.Settings.VolumeSteps = viper.GetInt("volume-steps")
 	}
+	if c.Settings.DeviceDisplay < minConfigDisplay {
+		c.Settings.DeviceDisplay = viper.GetInt("device-display")
+	}
+	if c.Settings.DeviceDisplay > maxConfigDisplay {
+		c.Settings.DeviceDisplay = viper.GetInt("device-display")
+	}
 	viper.Set("fullscreen", c.Settings.Fullscreen)
 	viper.Set("no-message", c.Settings.NoMessage)
 	viper.Set("no-help", c.Settings.NoHelp)
@@ -117,6 +131,8 @@ func validateConfig(c *Config) {
 	viper.Set("items", c.Settings.Items)
 	viper.Set("volume-limit", c.Settings.VolumeLimit)
 	viper.Set("volume-steps", c.Settings.VolumeSteps)
+	viper.Set("no-symbols", c.Settings.NoSymbols)
+	viper.Set("device-display", c.Settings.DeviceDisplay)
 }
 func initFlags() {
 	// flag creation and validation; flag defaults are passed from validateConfig()
@@ -128,6 +144,8 @@ func initFlags() {
 	flag.IntVarP(&setWidthFlag, "max-width", "w", viper.GetInt("width"), "set width of program in terminal")
 	flag.IntVarP(&maxVolumeFlag, "max-volume", "m", viper.GetInt("volume-limit"), "set maximum volume for devices")
 	flag.IntVarP(&setVolumeFlag, "volume-steps", "s", viper.GetInt("volume-steps"), "set volume increments")
+	flag.BoolVarP(&symbolsFlag, "no-symbols", "u", viper.GetBool("no-symbols"), "disable unicode symbols")
+	flag.IntVarP(&displayFlag, "device-display", "d", viper.GetInt("device-display"), "device display level")
 }
 func validateFlags() {
 	if setWidthFlag < minConfigWidth {
@@ -154,6 +172,12 @@ func validateFlags() {
 	if setVolumeFlag > maxConfigIncrement {
 		setVolumeFlag = viper.GetInt("volume-steps")
 	}
+	if displayFlag < minConfigDisplay {
+		displayFlag = viper.GetInt("device-display")
+	}
+	if displayFlag > maxConfigDisplay {
+		displayFlag = viper.GetInt("device-display")
+	}
 	// pass sane flag values to variables
 	setAltscreen = fullscreenFlag
 	setNoMessages = messagesFlag
@@ -163,6 +187,8 @@ func validateFlags() {
 	setItems = setItemsFlag
 	setMaxVolume = float64(maxVolumeFlag)
 	setVolume = float64(setVolumeFlag)
+	setNoSymbol = symbolsFlag
+	setDisplay = displayFlag
 }
 
 // load color values into program color variables
@@ -232,14 +258,16 @@ func loadConfigStyles(c *Config) lipgloss.Border {
 
 type Config struct {
 	Settings struct {
-		Fullscreen  bool `mapstructure:"fullscreen"`
-		NoHelp      bool `mapstructure:"nohelp"`
-		NoMessage   bool `mapstructure:"nomessage"`
-		NoTitle     bool `mapstructure:"notitle"`
-		Width       int  `mapstructure:"width"`
-		Items       int  `mapstructure:"items"`
-		VolumeLimit int  `mapstructure:"volumelimit"`
-		VolumeSteps int  `mapstructure:"volumesteps"`
+		Fullscreen    bool `mapstructure:"fullscreen"`
+		NoHelp        bool `mapstructure:"nohelp"`
+		NoMessage     bool `mapstructure:"nomessage"`
+		NoTitle       bool `mapstructure:"notitle"`
+		Width         int  `mapstructure:"width"`
+		Items         int  `mapstructure:"items"`
+		VolumeLimit   int  `mapstructure:"volumelimit"`
+		VolumeSteps   int  `mapstructure:"volumesteps"`
+		NoSymbols     bool `mapstructure:"nosymbols"`
+		DeviceDisplay int  `mapstructure:"devicedisplay"`
 	} `mapstructure:"settings"`
 	Colors struct {
 		Inactive struct {

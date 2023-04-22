@@ -25,13 +25,6 @@ func havePulseServer(cmd string) bool {
 // check for a tty terminal by parsing env variable
 func isConsole() bool {
 	if len(strings.TrimSpace(os.Getenv("DISPLAY"))) == 0 {
-		muted_icon = ""
-		unmuted_icon = ""
-		sus_icon = ""
-		idle_icon = ""
-		mic_icon = ""
-		pref_icon = ">>> "
-		suff_icon = " <<<"
 		return true
 	}
 	return false
@@ -42,6 +35,17 @@ func haveNoColor() bool { // TODO fix bar color adherence to no color
 		return true
 	}
 	return false
+}
+
+// unset icon variables or use ascii characters only
+func disableSymbols() {
+	muted_icon = ""
+	unmuted_icon = ""
+	sus_icon = ""
+	idle_icon = ""
+	mic_icon = ""
+	pref_icon = ">>> "
+	suff_icon = " <<<"
 }
 
 // build and return the intial model that will be passed to tea.NewProgram

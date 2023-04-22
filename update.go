@@ -84,7 +84,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.Keys.ShowFullHelp):
 			m.Help.ShowAll = !m.Help.ShowAll
 		// case key.Matches(msg, m.Keys.Demo):
-			// displayProgramMessage(&m)
+		// displayProgramMessage(&m)
 		//////////////// VOLUME //////////////////////
 		case key.Matches(msg, m.Keys.Mute):
 			toggleDeviceMute(&m)

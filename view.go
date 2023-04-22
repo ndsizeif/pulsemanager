@@ -54,7 +54,7 @@ func (m model) View() string {
 	// s += pad + m.Text.UnsetAlign().Render(fmt.Sprintf("m.Display.level: %v", m.Display.level))
 
 	// show current selected device if any // one line
-	s += pad + m.Text.UnsetAlign().Render(cutText(displayToggledDevice(&m), m.StringLen-35))
+	s += pad + m.Text.UnsetAlign().Render(cutText(displayToggledDevice(&m), m.StringLen / 2))
 	s += "\n\n" // two lines
 	// loop through each device and add its channel info to the view string
 	for index, pulsedevice := range DevicesExcludingCards[start:end] {
@@ -107,12 +107,12 @@ func displaySink(m *model, d PulseDevice) string {
 		mute = muted_state // only used for its string length
 	}
 	switch m.Display.level {
-	case 0:
-		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + fmt.Sprintf("%v", m.Cursor.suff))
 	case 1:
+		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + fmt.Sprintf("%v", m.Cursor.suff))
+	case 2:
 		t1 += cutText(fmt.Sprintf("%v%v%v", displayState(d), displayBattery(getBattery(d)), d.pulsedescription), m.StringLen-(len(m.Cursor.pref)+len(m.Cursor.suff)+len(mute)+len(displayState(d))))
 		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + t1 + fmt.Sprintf("%v", m.Cursor.suff))
-	case 2:
+	case 3:
 		t1 += cutText(fmt.Sprintf("%v%v", displayBattery(getBattery(d)), d.pulsedescription), m.StringLen)
 		t2 += cutText(fmt.Sprintf("%vsink #%v %v %v", displayState(d), d.pulseindex, d.pulsesamplerate, d.pulseport), m.StringLen)
 		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref)+t1+fmt.Sprintf("%v", m.Cursor.suff)) + "\n"
@@ -126,12 +126,12 @@ func displayStream(m *model, d PulseDevice) string {
 		mute = muted_state // only used for its string length
 	}
 	switch m.Display.level {
-	case 0:
-		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + fmt.Sprintf("%v", m.Cursor.suff))
 	case 1:
+		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + fmt.Sprintf("%v", m.Cursor.suff))
+	case 2:
 		t1 += cutText(fmt.Sprintf("%v%v", displayStreamMute(d), d.pulsedescription), m.StringLen-(len(m.Cursor.pref)+len(m.Cursor.suff)+len(mute)+len(displayStreamMute(d))))
 		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + t1 + fmt.Sprintf("%v", m.Cursor.suff))
-	case 2:
+	case 3:
 		t1 += cutText(fmt.Sprintf("%v", d.pulsedescription), m.StringLen-(len(m.Cursor.pref)+len(m.Cursor.suff)+len(mute)))
 		t2 += cutText(fmt.Sprintf("%v%v #%v %v", displayStreamMute(d), d.pulsename, d.pulseindex, displaySinkPort(m, d.pulsesinkindex)), m.StringLen)
 		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref)+t1+fmt.Sprintf("%v", m.Cursor.suff)) + "\n"
@@ -145,12 +145,12 @@ func displaySource(m *model, d PulseDevice) string {
 		mute = muted_state // only used for its string length
 	}
 	switch m.Display.level {
-	case 0:
-		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + fmt.Sprintf("%v", m.Cursor.suff))
 	case 1:
+		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + fmt.Sprintf("%v", m.Cursor.suff))
+	case 2:
 		t1 += cutText(fmt.Sprintf("%v%v%v", displayState(d), displayBattery(getBattery(d)), d.pulsedescription), m.StringLen-(len(m.Cursor.pref)+len(m.Cursor.suff)+len(mute)+len(displayState(d))))
 		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + t1 + fmt.Sprintf("%v", m.Cursor.suff))
-	case 2:
+	case 3:
 		t1 += cutText(fmt.Sprintf("%v%v", displayBattery(getBattery(d)), d.pulsedescription), m.StringLen-(len(m.Cursor.pref)+len(m.Cursor.suff)+len(mute)))
 		t2 += cutText(fmt.Sprintf("%vsource #%v %v %v", displayState(d), d.pulseindex, d.pulsesamplerate, d.pulseport), m.StringLen)
 		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref)+t1+fmt.Sprintf("%v", m.Cursor.suff)) + "\n"
@@ -164,12 +164,12 @@ func displayOutput(m *model, d PulseDevice) string {
 		mute = muted_state // only used for its string length
 	}
 	switch m.Display.level {
-	case 0:
-		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + fmt.Sprintf("%v", m.Cursor.suff))
 	case 1:
+		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + fmt.Sprintf("%v", m.Cursor.suff))
+	case 2:
 		t1 += cutText(fmt.Sprintf("%v%v", displayOutputMute(d), d.pulsename), m.StringLen-(len(m.Cursor.pref)+len(m.Cursor.suff)+len(mute)+len(displayOutputMute(d))))
 		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref) + t1 + fmt.Sprintf("%v", m.Cursor.suff))
-	case 2:
+	case 3:
 		t1 += cutText(fmt.Sprintf("%v", d.pulsename), m.StringLen-(len(m.Cursor.pref)+len(m.Cursor.suff)+len(mute)))
 		t2 += cutText(fmt.Sprintf("%v#%v %v %v %vµs", displayOutputMute(d), d.pulseindex, displaySourceName(m, d.pulsesourceindex), d.pulsesamplerate, d.pulselatency), m.StringLen)
 		s += m.Text.Render(fmt.Sprintf("%v", m.Cursor.pref)+t1+fmt.Sprintf("%v", m.Cursor.suff)) + "\n"
@@ -312,7 +312,7 @@ func displayOutputMute(d PulseDevice) string {
 
 // helper function to display running state
 func displayState(d PulseDevice) string {
-	if !istty {
+	if !istty && !setNoSymbol {
 		if d.pulsemute {
 			return muted_icon
 		}
@@ -351,31 +351,31 @@ func displayBattery(status string) string {
 	if status == "" {
 		return status // no battery property, return empty
 	}
-	if istty {
+	if istty || setNoSymbol {
 		return status + " " // return the raw percentage string plus space
 	}
 	var s string
 	b, _ := strconv.Atoi(strings.Trim(status, "%"))
 	if b > 89 {
-		s = battery_icon[90]
+		s = bluetooth_battery_icon[90]
 	} else if b > 79 {
-		s = battery_icon[80]
+		s = bluetooth_battery_icon[80]
 	} else if b > 69 {
-		s = battery_icon[70]
+		s = bluetooth_battery_icon[70]
 	} else if b > 59 {
-		s = battery_icon[60]
+		s = bluetooth_battery_icon[60]
 	} else if b > 49 {
-		s = battery_icon[50]
+		s = bluetooth_battery_icon[50]
 	} else if b > 39 {
-		s = battery_icon[40]
+		s = bluetooth_battery_icon[40]
 	} else if b > 29 {
-		s = battery_icon[30]
+		s = bluetooth_battery_icon[30]
 	} else if b > 19 {
-		s = battery_icon[20]
+		s = bluetooth_battery_icon[20]
 	} else if b > 9 {
-		s = battery_icon[10]
+		s = bluetooth_battery_icon[10]
 	} else if b > 0 {
-		s = battery_icon[0]
+		s = bluetooth_battery_icon[0]
 	}
 	return s
 }
@@ -409,7 +409,7 @@ func changeDisplayLevel(m *model) {
 	m.Display.level++
 	hidePercentage = false
 	if m.Display.level > m.Display.max {
-		m.Display.level = 0
+		m.Display.level = 1
 		hidePercentage = true
 	}
 }

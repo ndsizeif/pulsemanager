@@ -66,9 +66,9 @@ var (
 const (
 	programName = "Pulse Manager" // header for application
 	programMsg  = "control your pulseaudio devices from the terminal"
-	textPad     = 2               // text spacing value
-	minWidth    = 45              // minimum width will trigger exit
-	minHeight   = 8               // minimum height will trigger exit
+	textPad     = 2  // text spacing value
+	minWidth    = 45 // minimum width will trigger exit
+	minHeight   = 8  // minimum height will trigger exit
 
 	center = lipgloss.Center // alignment for rendering lipgloss text
 	left   = lipgloss.Left
@@ -93,7 +93,8 @@ const (
 	maxConfigVolume    = 180 // allows for boosting some streams if needed (bad for sinks)
 	minConfigIncrement = 1   // smallest percentage increase
 	maxConfigIncrement = 30  // allows for large jumps using h/l
-	maxConfigDisplay   = 2   // highest display setting available
+	minConfigDisplay   = 1   // lowest initial display setting available
+	maxConfigDisplay   = 3   // highest intial display setting available
 )
 
 // pulseaudio device enumeration
@@ -144,11 +145,11 @@ var varLatency = 10 // pass variable latency value to loopback
 
 // tui icons set by isConsole() and setNoSymbols
 var (
-	muted_icon   = "󰖁 "
-	unmuted_icon = "󰕾 "
-	idle_icon    = "󰕿 "
-	sus_icon     = "󰝟 "
-	mic_icon     = "󰍬 "
+	muted_icon   = "󰖁  "
+	unmuted_icon = "󰕾  "
+	idle_icon    = "󰕿  "
+	sus_icon     = "󰝟  "
+	mic_icon     = "󰍬  "
 	pref_icon    = "󰁕  "
 	suff_icon    = "  󰁎"
 	battery_icon = map[int]string{90: " ", 80: " ", 70: " ", 60: " ",
@@ -250,7 +251,7 @@ type Display struct {
 // send initial display settings to bubbletea model
 func initDisplay() Display {
 	var display Display
-	display.level = 2
+	display.level = setDisplay
 	display.max = maxConfigDisplay
 	return display
 }

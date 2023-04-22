@@ -25,8 +25,9 @@ func main() {
 		fmt.Println(errorOut(errorMsg1))
 		return
 	}
-	if isConsole() {
-		istty = true
+	istty = isConsole()
+	if istty || setNoSymbol {
+		disableSymbols()
 	}
 	// launch bubbletea fullscreen or inline
 	var p *tea.Program
