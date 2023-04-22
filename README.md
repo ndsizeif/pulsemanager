@@ -12,9 +12,9 @@ Download the main branch of the project without any assets.
 ```
 git clone --depth=1 https://github.com/ndsizeif/pulsemanager
 ```
-To try it out simply type `go run .` in the project directory.
-To install run `go build` and place the pulsemanager binary in your PATH.
-The system must have pactl installed.
+To try it out simply type `go run .` in the project directory. To install run
+`go build` and place the pulsemanager binary in your PATH. The system must have
+pactl installed.
 
 ### Usage
 
@@ -24,14 +24,16 @@ It can issue basic pactl commands to control device parameters, such as volume.
 #### Flags
 
 ```
-  -f, --fullscreen         display fullscreen (default true)
-  -i, --max-items int      set devices per page (default 5)
-  -m, --max-volume int     set maximum volume for devices (default 180)
-  -w, --max-width int      set width of program in terminal (default 100)
-  -H, --no-help            hide help text
-  -v, --no-messages        hide program messages
-  -t, --no-title           hide program name
-  -s, --volume-steps int   set volume increments (default 5)
+  -d, --device-display int   device display level (default 2)
+  -f, --fullscreen           display fullscreen (default true)
+  -i, --max-items int        set devices per page (default 4)
+  -m, --max-volume int       set maximum volume for devices (default 110)
+  -w, --max-width int        set width of program in terminal (default 100)
+  -H, --no-help              hide help text
+  -v, --no-messages          hide program messages
+  -u, --no-symbols           disable unicode symbols
+  -t, --no-title             hide program name
+  -s, --volume-steps int     set volume increments (default 5)
 ```
 #### Implemented Commands
 
@@ -106,6 +108,17 @@ Perform Action
 Latency
 - The adjustable latency range for loopback module is 10 - 500 milliseconds.
 
+#### Fonts
+
+In order for some of the unicode symbols to display correctly in the terminal, a
+patched font is required.  A plethora of patched fonts are available below.
+
+[Nerd Font Github Repository](https://github.com/ryanoasis/nerd-fonts) 
+[Nerd Font Website](https://www.nerdfonts.com/font-downloads) 
+
+Alternatively, unicode symbols can be disabled by passing the -u flag, or
+setting symbols to false in the `config.yaml` file. When launching the program
+in a tty, unicode symbols will be disabled automatically
 
 ### Issues
 
@@ -114,6 +127,8 @@ This requires media name parsing from the pactl text format. The program may
 briefly report inaccurate data.
 
 Moving an output to another source needs testing.
+
+Bluetooth battery levels may not be available for specific devices if using [pipewire](https://pipewire.org)
 
 ### Contributing
 

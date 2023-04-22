@@ -52,7 +52,7 @@ func initDefaults() Config {
 	c.Settings.VolumeLimit = 110
 	c.Settings.VolumeSteps = 5
 	c.Settings.NoSymbols = false
-	c.Settings.DeviceDisplay = 2
+	c.Settings.DeviceDisplay = 3
 	return c
 }
 
@@ -136,7 +136,7 @@ func validateConfig(c *Config) {
 }
 func initFlags() {
 	// flag creation and validation; flag defaults are passed from validateConfig()
-	flag.BoolVarP(&fullscreenFlag, "fullscreen", "f", true, "display fullscreen")
+	flag.BoolVarP(&fullscreenFlag, "fullscreen", "f", viper.GetBool("fullscreen"), "display fullscreen")
 	flag.BoolVarP(&helpFlag, "no-help", "H", viper.GetBool("no-help"), "hide help text")
 	flag.BoolVarP(&titleFlag, "no-title", "t", viper.GetBool("no-title"), "hide program name")
 	flag.BoolVarP(&messagesFlag, "no-messages", "v", viper.GetBool("no-message"), "hide program messages")

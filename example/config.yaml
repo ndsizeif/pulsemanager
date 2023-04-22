@@ -4,10 +4,12 @@ Settings:
   NoMessage: false
   NoHelp: false
   NoTitle: false
-  Width: 120
+  Width: 100
   Items: 5
-  VolumeLimit: 140
+  VolumeLimit: 120
   VolumeSteps: 5
+  NoSymbols: false
+  DeviceDisplay: 2
 Colors:
   Inactive:
     Light: "red"
@@ -26,6 +28,6 @@ Colors:
     Dark:  "#F59342"
   Output:
     Light: "red"
-    Dark:  "#F5DD42"
+    Dark:  "red"
 Styles:
   Border: 4
