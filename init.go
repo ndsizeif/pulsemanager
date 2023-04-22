@@ -29,7 +29,6 @@ func isConsole() bool {
 		unmuted_icon = ""
 		sus_icon = ""
 		idle_icon = ""
-		volume_icon = ""
 		mic_icon = ""
 		pref_icon = ">>> "
 		suff_icon = " <<<"

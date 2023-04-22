@@ -93,6 +93,7 @@ const (
 	maxConfigVolume    = 180 // allows for boosting some streams if needed (bad for sinks)
 	minConfigIncrement = 1   // smallest percentage increase
 	maxConfigIncrement = 30  // allows for large jumps using h/l
+	maxConfigDisplay   = 2   // highest display setting available
 )
 
 // pulseaudio device enumeration
@@ -141,18 +142,19 @@ const (
 
 var varLatency = 10 // pass variable latency value to loopback
 
-// tui icons set by isConsole()
+// tui icons set by isConsole() and setNoSymbols
 var (
-	muted_icon   = "🔇 "
-	unmuted_icon = "🔊 "
-	idle_icon    = "🔉 "
-	sus_icon     = "🔈 "
-	volume_icon  = "🎚 "
-	mic_icon     = "🎙 "
-	pref_icon    = "⮞  "
-	suff_icon    = "  ⮜"
+	muted_icon   = "󰖁 "
+	unmuted_icon = "󰕾 "
+	idle_icon    = "󰕿 "
+	sus_icon     = "󰝟 "
+	mic_icon     = "󰍬 "
+	pref_icon    = "󰁕  "
+	suff_icon    = "  󰁎"
 	battery_icon = map[int]string{90: " ", 80: " ", 70: " ", 60: " ",
 		50: " ", 40: " ", 30: " ", 20: " ", 10: " ", 0: ""}
+	bluetooth_battery_icon = map[int]string{90: "󰥆 ", 80: "󰥅 ", 70: "󰥄 ", 60: "󰥃 ",
+		50: "󰥂 ", 40: "󰥁 ", 30: "󰥀 ", 20: "󰤿 ", 10: "󰤾 ", 0: "󱃍 "}
 	//
 )
 
@@ -249,7 +251,7 @@ type Display struct {
 func initDisplay() Display {
 	var display Display
 	display.level = 2
-	display.max = 2
+	display.max = maxConfigDisplay
 	return display
 }
 
@@ -378,7 +380,7 @@ func initKeymapping() *programKeymap {
 		),
 		PerformAction: key.NewBinding(
 			key.WithKeys("enter"),
-			key.WithHelp("⏎", "perform action"),
+			key.WithHelp("󰌑", "perform action"),
 		),
 		ChangeChannel: key.NewBinding(
 			key.WithKeys("c"),
